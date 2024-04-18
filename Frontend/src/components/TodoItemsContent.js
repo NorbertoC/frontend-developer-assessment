@@ -1,20 +1,29 @@
 import { Button, Table } from 'react-bootstrap';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTodoListStore } from '../store/TodoList';
 
 const TodoItemsContent = () => {
-  const [items, setItems] = useState([]);
+  const fetchTodoItems = useTodoListStore(state => state.fetchTodoItems);
+  const todoItems = useTodoListStore(state => state.todoItems);
   
-  const getItems = useCallback(() => {})
+  useEffect(() => {
+    fetchTodoItems()
+  }, [])
   
-  const handleMarkAsComplete = (item) => {
+  
+  const handleRefreshClick = () => {
+    fetchTodoItems()
+  }
+  
+  const handleMarkAsCompleteClick = (item) => {
   
   }
   
   return (
     <>
       <h1>
-        Showing {items.length} Item(s){' '}
-        <Button variant="primary" className="pull-right" onClick={() => getItems()}>
+        Showing {todoItems.length} Item(s){' '}
+        <Button variant="primary" className="pull-right" onClick={handleRefreshClick}>
           Refresh
         </Button>
       </h1>
@@ -28,12 +37,12 @@ const TodoItemsContent = () => {
         </tr>
         </thead>
         <tbody>
-        {items.map((item) => (
+        {todoItems.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.description}</td>
             <td>
-              <Button variant="warning" size="sm" onClick={() => handleMarkAsComplete(item)}>
+              <Button variant="warning" size="sm" onClick={handleMarkAsCompleteClick(item)}>
                 Mark as completed
               </Button>
             </td>
