@@ -1,4 +1,8 @@
 import { create } from 'zustand';
+import Axios from 'axios';
+
+const TODO_LIST_API = 'http://localhost:8000/api';
+const ENDPOINT = 'todoItems';
 
 export const useTodoListStore = create((set, get) => {
   return {
@@ -6,33 +10,26 @@ export const useTodoListStore = create((set, get) => {
     
     fetchTodoItems: async () => {
       try {
-        const response = await fetch('/api/todoItems');
-        const data = await response.json();
+        const response = await Axios.get(`${TODO_LIST_API}/${ENDPOINT}`);
         
-        set({ todoItems: data });
+        set({ todoItems: response.data });
       } catch (error) {
         console.error('Error fetching todo items:', error);
       }
     },
     
-    createTodoItem: async (newTodoItem) => {
+    createTodoItem: async (item) => {
       try {
-        const response = await fetch('/api/todoItems', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: newTodoItem,
-        });
+        const response = await Axios.post(`${TODO_LIST_API}/${ENDPOINT}`, item);
         
-        if (response.ok) {
-          const createdItem = await response.json();
+        if (response.data) {
           set(state => ({
-            todoItems: [...state.todoItems, createdItem],
+            todoItems: [...state.todoItems, response.data],
           }));
         } else {
           console.error('Error adding todo item:', response.statusText);
         }
+        
       } catch (error) {
         console.error('Error adding todo item:', error);
       }
@@ -40,29 +37,22 @@ export const useTodoListStore = create((set, get) => {
     
     updateTodoItem: async (id, updatedTodoItem) => {
       try {
-        await fetch(`/api/todoItems/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: updatedTodoItem,
-        });
+        const response = await Axios.put(`${TODO_LIST_API}/${ENDPOINT}/${id}`, updatedTodoItem);
         
         set(state => ({
           todoItems: state.todoItems.map(item =>
-            item.id === id ? { ...item, ...updatedTodoItem } : item
+            item.id === id ? { ...item, ...response.data } : item
           ),
         }));
+        
       } catch (error) {
-        console.error('Error updating todo item:', error);
+        console.error('Error adding todo item:', error);
       }
     },
     
     removeTodoItem: async id => {
       try {
-        await fetch(`/api/todoItems/${id}`, {
-          method: 'DELETE',
-        });
+        await Axios.delete(`${TODO_LIST_API}/${ENDPOINT}/${id}`);
         
         set(state => ({
           todoItems: state.todoItems.filter(item => item.id !== id),

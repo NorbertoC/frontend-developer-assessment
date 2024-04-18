@@ -1,16 +1,26 @@
 import { Button, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import React, { useState } from 'react';
+import { useTodoListStore } from '../store/TodoList';
 
 const AddTodoItemContent = () => {
   const [description, setDescription] = useState('');
+  const createTodoItem = useTodoListStore(state => state.createTodoItem);
   
   const handleDescriptionChange = (event) => {
-    // todo
+    setDescription(event.target.value);
   };
   
   async function handleAdd() {
     try {
-      alert('todo');
+      if (!description.trim()) return;
+      
+      console.log('handleAdd description: ', description)
+      
+      await createTodoItem({
+        description,
+      });
+      
+      setDescription('');
     } catch (error) {
       console.error(error);
     }
