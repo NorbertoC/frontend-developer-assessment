@@ -1,0 +1,10 @@
+.action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.action-button {
+    width: 180px;
+    height: 45px;
+}

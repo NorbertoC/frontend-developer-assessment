@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useTodoListStore } from '../store/TodoList';
+import './TodoItemsContent.css';
 
 const TodoItemsContent = () => {
   const fetchTodoItems = useTodoListStore(state => state.fetchTodoItems);
@@ -13,7 +14,7 @@ const TodoItemsContent = () => {
   }
   
   const handleMarkAsCompleteClick = (item) => {
-    updateTodoItem(item.id, { ...item, isCompleted: true });
+    updateTodoItem(item.id, { ...item, isCompleted: !item.isCompleted });
   }
   
   const handleDeleteItem = (item) => {
@@ -39,12 +40,12 @@ const TodoItemsContent = () => {
         </thead>
         <tbody>
         {todoItems.map((item) => (
-          <tr key={item.id}>
+          <tr key={item.id} style={{ backgroundColor: item.isCompleted ? 'green' : 'inherit' }}>
             <td>{item.id}</td>
             <td>{item.description}</td>
-            <td>
-              <Button variant="warning" size="sm" onClick={() => handleMarkAsCompleteClick(item)}>
-                Mark as completed
+            <td className="action">
+              <Button variant="warning" size="sm" className="action-button" onClick={() => handleMarkAsCompleteClick(item)}>
+                {item.isCompleted ? 'Mark as not completed' : 'Mark as completed' }
               </Button>
               <Button variant="warning" size="sm" onClick={() => handleDeleteItem(item)}>
                 Delete item

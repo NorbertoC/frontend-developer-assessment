@@ -12,7 +12,12 @@ export const useTodoListStore = create((set, get) => {
       try {
         const response = await Axios.get(`${TODO_LIST_API}/${ENDPOINT}`);
         
-        set({ todoItems: response.data });
+        const updatedTodoItems = response.data.map(todoItem => ({
+          ...todoItem,
+          isCompleted: todoItem.hasOwnProperty('isCompleted') ? todoItem.isCompleted : false,
+        }));
+        
+        set({ todoItems: updatedTodoItems });
       } catch (error) {
         console.error('Error fetching todo items:', error);
       }
@@ -22,9 +27,11 @@ export const useTodoListStore = create((set, get) => {
       try {
         const response = await Axios.post(`${TODO_LIST_API}/${ENDPOINT}`, item);
         
+        console.log('createTodoItem response: ', response)
+        
         if (response.data) {
           set(state => ({
-            todoItems: [...state.todoItems, response.data],
+            todoItems: [...state.todoItems, { ...response.data, isCompleted: false }],
           }));
         } else {
           console.error('Error adding todo item:', response.statusText);
