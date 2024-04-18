@@ -7,37 +7,38 @@ const ENDPOINT = 'todoItems'
 export const useTodoListStore = create((set, get) => {
   return {
     todoItems: [],
+    errorMessage: '',
+
+    clearErrorMessage: () => set({ errorMessage: '' }),
 
     fetchTodoItems: async () => {
       try {
         const response = await Axios.get(`${TODO_LIST_API}/${ENDPOINT}`)
-
         const updatedTodoItems = response.data.map(todoItem => ({
           ...todoItem,
           isCompleted: typeof todoItem.isCompleted !== 'undefined' ? todoItem.isCompleted : false
         }))
-
         set({ todoItems: updatedTodoItems })
       } catch (error) {
         console.error('Error fetching todo items:', error)
+        set({ errorMessage: error.message }) // Store the error message
       }
     },
 
     createTodoItem: async (item) => {
       try {
         const response = await Axios.post(`${TODO_LIST_API}/${ENDPOINT}`, item)
-
-        console.log('createTodoItem response: ', response)
-
         if (response.data) {
           set(state => ({
             todoItems: [...state.todoItems, { ...response.data, isCompleted: false }]
           }))
         } else {
           console.error('Error adding todo item:', response.statusText)
+          set({ errorMessage: 'Item already exists' })
         }
       } catch (error) {
         console.error('Error adding todo item:', error)
+        set({ errorMessage: 'Item already exists' })
       }
     },
 

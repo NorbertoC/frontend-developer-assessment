@@ -1,35 +1,38 @@
-import { Button, Col, Container, Form, Row, Stack } from 'react-bootstrap'
 import React, { useState } from 'react'
+import { Button, Col, Container, Form, Row, Stack } from 'react-bootstrap'
 import { useTodoListStore } from '../../store/TodoListStore'
 import './AddTodoItemContent.css'
+import ErrorModal from '../ErrorModal'
 
 const AddTodoItemContent = () => {
   const [description, setDescription] = useState('')
-  const [isEmpty, setIsEmpty] = useState(false) // State to control if the description field is empty
-  const [isSubmitted, setIsSubmitted] = useState(false) // State to control if the form has been submitted
-  const createTodoItem = useTodoListStore(state => state.createTodoItem)
+  const [isEmpty, setIsEmpty] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const errorMessage = useTodoListStore((state) => state.errorMessage)
+  const createTodoItem = useTodoListStore((state) => state.createTodoItem)
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value)
-    setIsEmpty(event.target.value === '') // Update isEmpty state
+    setIsEmpty(event.target.value === '')
   }
 
   const handleAdd = () => {
     if (!description) {
-      setIsEmpty(true) // If the field is empty, set isEmpty to true
-      setIsSubmitted(true) // Set isSubmitted to true when trying to add an empty item
+      setIsEmpty(true)
+      setIsSubmitted(true)
       return
     }
+
     createTodoItem({ description })
     setDescription('')
-    setIsEmpty(false) // Reset isEmpty state after adding an item
-    setIsSubmitted(false) // Reset isSubmitted state after adding an item
+    setIsEmpty(false)
+    setIsSubmitted(false)
   }
 
   const handleClear = () => {
     setDescription('')
-    setIsEmpty(false) // Reset isEmpty state after clearing the field
-    setIsSubmitted(false) // Reset isSubmitted state after clearing the field
+    setIsEmpty(false)
+    setIsSubmitted(false)
   }
 
   return (
@@ -49,7 +52,7 @@ const AddTodoItemContent = () => {
         </Col>
       </Form.Group>
       <Form.Group as={Row} className='mb-3 offset-md-2 mt-3' controlId='formAddTodoItem'>
-        <Stack direction='horizontal' gap={2} className='mt-20'>
+        <Stack direction='horizontal' gap={2}>
           <Button variant='primary' onClick={handleAdd}>
             Add New Item
           </Button>
@@ -58,6 +61,7 @@ const AddTodoItemContent = () => {
           </Button>
         </Stack>
       </Form.Group>
+      <ErrorModal show={!!errorMessage} errorMessage={errorMessage} />
     </Container>
   )
 }
