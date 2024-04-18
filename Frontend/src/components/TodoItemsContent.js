@@ -47,7 +47,7 @@ const TodoItemsContent = () => {
               <Button variant="warning" size="sm" className="action-button" onClick={() => handleMarkAsCompleteClick(item)}>
                 {item.isCompleted ? 'Mark as not completed' : 'Mark as completed' }
               </Button>
-              <Button variant="warning" size="sm" onClick={() => handleDeleteItem(item)}>
+              <Button variant="danger" size="sm" onClick={() => handleDeleteItem(item)}>
                 Delete item
               </Button>
             </td>
