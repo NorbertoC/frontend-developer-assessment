@@ -5,14 +5,19 @@ import { useTodoListStore } from '../store/TodoList';
 const TodoItemsContent = () => {
   const fetchTodoItems = useTodoListStore(state => state.fetchTodoItems);
   const todoItems = useTodoListStore(state => state.todoItems);
-  
+  const updateTodoItem = useTodoListStore(state => state.updateTodoItem);
+  const removeTodoItem = useTodoListStore(state => state.removeTodoItem);
   
   const handleRefreshClick = () => {
-    fetchTodoItems()
+    fetchTodoItems();
   }
   
   const handleMarkAsCompleteClick = (item) => {
+    updateTodoItem(item.id, { ...item, isCompleted: true });
+  }
   
+  const handleDeleteItem = (item) => {
+    removeTodoItem(item.id);
   }
   
   return (
@@ -38,8 +43,11 @@ const TodoItemsContent = () => {
             <td>{item.id}</td>
             <td>{item.description}</td>
             <td>
-              <Button variant="warning" size="sm" onClick={handleMarkAsCompleteClick(item)}>
+              <Button variant="warning" size="sm" onClick={() => handleMarkAsCompleteClick(item)}>
                 Mark as completed
+              </Button>
+              <Button variant="warning" size="sm" onClick={() => handleDeleteItem(item)}>
+                Delete item
               </Button>
             </td>
           </tr>
