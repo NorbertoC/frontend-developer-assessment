@@ -5,7 +5,7 @@ import AddTodoItemContent from './components/AddTodoItemContent/AddTodoItemConte
 import TodoItemsContent from './components/TodoItemsContent/TodoItemsContent';
 import WelcomeMessage from './components/WelcomeMessage/WelcomeMessage';
 import TodoListFooter from './components/Footer/Footer';
-import { useTodoListStore } from './store/TodoList';
+import { useTodoListStore } from './store/TodoListStore';
 
 const App = () => {
   const fetchTodoItems = useTodoListStore(state => state.fetchTodoItems);

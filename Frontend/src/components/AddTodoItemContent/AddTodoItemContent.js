@@ -1,6 +1,6 @@
 import { Button, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import React, { useState } from 'react';
-import { useTodoListStore } from '../../store/TodoList';
+import { useTodoListStore } from '../../store/TodoListStore';
 
 const AddTodoItemContent = () => {
   const [description, setDescription] = useState('');

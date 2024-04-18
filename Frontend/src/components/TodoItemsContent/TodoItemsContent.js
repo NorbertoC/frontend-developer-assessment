@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Table } from 'react-bootstrap';
-import { useTodoListStore } from '../../store/TodoList';
+import { useTodoListStore } from '../../store/TodoListStore';
 import './TodoItemsContent.css';
 
 const TodoItemsContent = () => {

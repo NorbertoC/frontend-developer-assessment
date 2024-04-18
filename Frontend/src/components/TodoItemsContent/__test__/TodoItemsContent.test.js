@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TodoItemsContent from '../TodoItemsContent';
-import { useTodoListStore } from '../../../store/TodoList';
+import { useTodoListStore } from '../../../store/TodoListStore';
 
 describe('Test todo list', () => {
   test('renders the todo items list component', () => {
