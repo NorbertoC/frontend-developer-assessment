@@ -42,13 +42,14 @@ export const useTodoListStore = create((set, get) => {
       }
     },
     
-    updateTodoItem: async (id, updatedTodoItem) => {
+    updateTodoItem: async (itemToUpdate) => {
       try {
-        const response = await Axios.put(`${TODO_LIST_API}/${ENDPOINT}/${id}`, updatedTodoItem);
+        const updatedTodoItem = { ...itemToUpdate, isCompleted: !itemToUpdate.isCompleted };
+        const response = await Axios.put(`${TODO_LIST_API}/${ENDPOINT}/${itemToUpdate.id}`, updatedTodoItem);
         
         set(state => ({
           todoItems: state.todoItems.map(item =>
-            item.id === id ? { ...item, ...response.data } : item
+            item.id === itemToUpdate.id ? { ...item, ...response.data } : item
           ),
         }));
         

@@ -1,10 +1,10 @@
 import './App.css';
 import { Image, Container, Row, Col } from 'react-bootstrap';
 import React, { useEffect } from 'react';
-import AddTodoItemContent from './components/AddTodoItemContent';
-import TodoItemsContent from './components/TodoItemsContent';
-import WelcomeMessage from './components/WelcomeMessage';
-import TodoListFooter from './components/Footer';
+import AddTodoItemContent from './components/AddTodoItemContent/AddTodoItemContent';
+import TodoItemsContent from './components/TodoItemsContent/TodoItemsContent';
+import WelcomeMessage from './components/WelcomeMessage/WelcomeMessage';
+import TodoListFooter from './components/Footer/Footer';
 import { useTodoListStore } from './store/TodoList';
 
 const App = () => {
