@@ -1,14 +1,10 @@
+import React from 'react';
 import { Button, Table } from 'react-bootstrap';
-import React, { useCallback, useEffect, useState } from 'react';
 import { useTodoListStore } from '../store/TodoList';
 
 const TodoItemsContent = () => {
   const fetchTodoItems = useTodoListStore(state => state.fetchTodoItems);
   const todoItems = useTodoListStore(state => state.todoItems);
-  
-  useEffect(() => {
-    fetchTodoItems()
-  }, [])
   
   
   const handleRefreshClick = () => {

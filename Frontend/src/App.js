@@ -1,12 +1,19 @@
 import './App.css';
 import { Image, Container, Row, Col } from 'react-bootstrap';
-import React from 'react';
+import React, { useEffect } from 'react';
 import AddTodoItemContent from './components/AddTodoItemContent';
 import TodoItemsContent from './components/TodoItemsContent';
 import WelcomeMessage from './components/WelcomeMessage';
 import TodoListFooter from './components/Footer';
+import { useTodoListStore } from './store/TodoList';
 
 const App = () => {
+  const fetchTodoItems = useTodoListStore(state => state.fetchTodoItems);
+  
+  useEffect(() => {
+    fetchTodoItems()
+  }, [])
+  
   return (
     <div className="App">
       <Container>
