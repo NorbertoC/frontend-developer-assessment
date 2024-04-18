@@ -28,7 +28,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "./node_modules/standard/eslintrc.json"
     ]
   },
   "browserslist": {
@@ -51,7 +52,8 @@
     "cross-env": "^7.0.3",
     "prettier": "^2.8.2",
     "react-scripts": "^5.0.1",
-    "sass": "^1.57.1"
+    "sass": "^1.57.1",
+    "standard": "^17.1.0"
   },
   "jest": {
     "moduleNameMapper": {

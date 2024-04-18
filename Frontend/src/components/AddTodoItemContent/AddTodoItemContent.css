@@ -1,0 +1,7 @@
+.empty .form-control {
+    border-color: #c71010;
+}
+
+.empty .form-control::placeholder {
+    color: #c71010;
+}

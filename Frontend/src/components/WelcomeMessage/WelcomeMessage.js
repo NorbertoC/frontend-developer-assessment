@@ -1,15 +1,15 @@
-import React from 'react';
-import { Alert } from 'react-bootstrap';
+import React from 'react'
+import { Alert } from 'react-bootstrap'
 
 const WelcomeMessage = () => {
   return (
-    <Alert variant="success">
+    <Alert variant='success'>
       <Alert.Heading>Todo List App</Alert.Heading>
       Welcome to the ClearPoint frontend technical test. We like to keep things simple, yet clean so your
       task(s) are as follows:
       <br />
       <br />
-      <ol className="list-left">
+      <ol className='list-left'>
         <li>Add the ability to add (POST) a Todo Item by calling the backend API</li>
         <li>
           Display (GET) all the current Todo Items in the below grid and display them in any order you wish
@@ -25,4 +25,4 @@ const WelcomeMessage = () => {
   )
 }
 
-export default WelcomeMessage;
+export default WelcomeMessage

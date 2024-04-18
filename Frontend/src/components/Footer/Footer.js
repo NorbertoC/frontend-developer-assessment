@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 
 const TodoListFooter = () => {
   return (
-    <footer className="page-footer font-small teal pt-4">
-      <div className="footer-copyright text-center py-3">
+    <footer className='page-footer font-small teal pt-4'>
+      <div className='footer-copyright text-center py-3'>
         © 2021 Copyright:
-        <a href="https://clearpoint.digital" target="_blank" rel="noreferrer">
+        <a href='https://clearpoint.digital' target='_blank' rel='noreferrer'>
           clearpoint.digital
         </a>
       </div>
@@ -13,4 +13,4 @@ const TodoListFooter = () => {
   )
 }
 
-export default TodoListFooter;
+export default TodoListFooter

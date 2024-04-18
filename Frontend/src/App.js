@@ -1,25 +1,25 @@
-import './App.css';
-import { Image, Container, Row, Col } from 'react-bootstrap';
-import React, { useEffect } from 'react';
-import AddTodoItemContent from './components/AddTodoItemContent/AddTodoItemContent';
-import TodoItemsContent from './components/TodoItemsContent/TodoItemsContent';
-import WelcomeMessage from './components/WelcomeMessage/WelcomeMessage';
-import TodoListFooter from './components/Footer/Footer';
-import { useTodoListStore } from './store/TodoListStore';
+import './App.css'
+import { Image, Container, Row, Col } from 'react-bootstrap'
+import React, { useEffect } from 'react'
+import AddTodoItemContent from './components/AddTodoItemContent/AddTodoItemContent'
+import TodoItemsContent from './components/TodoItemsContent/TodoItemsContent'
+import WelcomeMessage from './components/WelcomeMessage/WelcomeMessage'
+import TodoListFooter from './components/Footer/Footer'
+import { useTodoListStore } from './store/TodoListStore'
 
 const App = () => {
-  const fetchTodoItems = useTodoListStore(state => state.fetchTodoItems);
-  
+  const fetchTodoItems = useTodoListStore(state => state.fetchTodoItems)
+
   useEffect(() => {
-    fetchTodoItems()
+    fetchTodoItems() // Fetch the items the first time the app loads
   }, [])
-  
+
   return (
-    <div className="App">
+    <div className='App'>
       <Container>
         <Row>
           <Col>
-            <Image src="clearPointLogo.png" fluid rounded />
+            <Image src='clearPointLogo.png' fluid rounded />
           </Col>
         </Row>
         <Row>
@@ -41,7 +41,7 @@ const App = () => {
       </Container>
       <TodoListFooter />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
