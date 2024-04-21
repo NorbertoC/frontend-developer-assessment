@@ -5,12 +5,12 @@ import './AddTodoItemContent.css'
 import ErrorModal from '../ErrorModal'
 
 const AddTodoItemContent = () => {
-  const [description, setDescription] = useState('')
-  const [isEmpty, setIsEmpty] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [description, setDescription] = useState('') // todo item description
+  const [isEmpty, setIsEmpty] = useState(false) // whether the description is empty
+  const [isSubmitted, setIsSubmitted] = useState(false) // whether the form has been submitted
 
-  const errorMessage = useTodoListStore(state => state.errorMessage)
-  const createTodoItem = useTodoListStore(state => state.createTodoItem)
+  const errorMessage = useTodoListStore(state => state.errorMessage) // error message from the store
+  const createTodoItem = useTodoListStore(state => state.createTodoItem) // function to create a new todo item
 
   // Strings
   const strings = {
@@ -22,12 +22,14 @@ const AddTodoItemContent = () => {
     clear: 'Clear'
   }
 
+  // Handle description change event
   const handleDescriptionChange = event => {
     setDescription(event.target.value)
     setIsEmpty(event.target.value === '')
   }
 
-  const handleAdd = async () => {
+  // Handle Add new item button click
+  const handleAddNewItem = async () => {
     if (!description) {
       setIsEmpty(true)
       setIsSubmitted(true)
@@ -40,7 +42,8 @@ const AddTodoItemContent = () => {
     setIsSubmitted(false)
   }
 
-  const handleClear = () => {
+  // Handle clear description button click
+  const handleClearDescription = () => {
     setDescription('')
     setIsEmpty(false)
     setIsSubmitted(false)
@@ -64,10 +67,10 @@ const AddTodoItemContent = () => {
       </Form.Group>
       <Form.Group as={Row} className='mb-3 offset-md-2 mt-3' controlId='formAddTodoItem'>
         <Stack direction='horizontal' gap={2}>
-          <Button variant='primary' onClick={handleAdd}>
+          <Button variant='primary' onClick={handleAddNewItem}>
             {strings.addNewItem}
           </Button>
-          <Button variant='secondary' onClick={handleClear}>
+          <Button variant='secondary' onClick={handleClearDescription}>
             {strings.clear}
           </Button>
         </Stack>

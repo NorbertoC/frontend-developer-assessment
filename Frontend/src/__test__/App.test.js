@@ -1,7 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import App from '../App'
+import { useTodoListStore } from '../store/TodoListStore'
 
 describe('Add item to the list', () => {
+  afterAll(() => {
+    const todoListStore = useTodoListStore.getState()
+    todoListStore.todoItems = []
+  })
+
   test('Add item to the list and check if the item is visible', async () => {
     render(<App />)
     const inputElement = screen.getByPlaceholderText(/Enter description.../i)

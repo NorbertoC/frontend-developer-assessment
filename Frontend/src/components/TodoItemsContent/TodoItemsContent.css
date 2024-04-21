@@ -1,9 +1,22 @@
-.action {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+th, td {
+    width: 25%;
 }
 
 .action-button {
     width: 180px;
+}
+
+.completed .content {
+    position: relative;
+}
+
+.completed .content::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #484747;
+    transform: translateY(-50%);
 }

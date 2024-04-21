@@ -1,8 +1,14 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import AddTodoItemContent from '../AddTodoItemContent'
+import { useTodoListStore } from '../../../store/TodoListStore'
 
 describe('Add input', () => {
+  afterAll(() => {
+    const todoListStore = useTodoListStore.getState()
+    todoListStore.todoItems = []
+  })
+
   test('renders the add item component', () => {
     render(<AddTodoItemContent />)
     const addButton = screen.getByText(/Add New Item/i)

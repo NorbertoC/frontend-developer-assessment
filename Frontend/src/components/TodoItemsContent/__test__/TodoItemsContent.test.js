@@ -11,21 +11,28 @@ describe('Test todo list', () => {
     expect(todoItemsContentElement).toBeInTheDocument()
   })
 
-  test('Should render element on the list', () => {
+  test('renders the todo items list with multiple items', () => {
     useTodoListStore.setState({
       todoItems: [
         {
           id: 'asdf',
           description: 'Buy food',
           isCompleted: false
+        },
+        {
+          id: 'qwer',
+          description: 'Buy drinks',
+          isCompleted: true
         }
       ]
     })
 
     render(<TodoItemsContent />)
 
-    const getTableElement = screen.getByText(/Buy food/i)
-    expect(getTableElement).toBeInTheDocument()
+    const tableRows = screen.getAllByRole('row')
+    expect(tableRows).toHaveLength(3)
+    expect(tableRows[1]).toHaveTextContent('Buy food')
+    expect(tableRows[2]).toHaveTextContent('Buy drinks')
   })
 
   test("Should display 'Mark as completed' if isCompleted is 'false'", () => {

@@ -50,6 +50,7 @@ const TodoItemsContent = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
+            <th>{strings.action}</th>
             <th>{strings.id}</th>
             <th>{strings.description}</th>
             <th>{strings.action}</th>
@@ -57,9 +58,7 @@ const TodoItemsContent = () => {
         </thead>
         <tbody>
           {todoItems.map(item => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td style={{ textDecoration: item.isCompleted ? 'line-through' : 'inherit' }}>{item.description}</td>
+            <tr key={item.id} className={item.isCompleted ? 'completed' : ''}>
               <td className='action'>
                 <Button
                   variant='warning'
@@ -69,6 +68,10 @@ const TodoItemsContent = () => {
                 >
                   {item.isCompleted ? strings.markNotCompleted : strings.markCompleted}
                 </Button>
+              </td>
+              <td className='content'>{item.id}</td>
+              <td className='content' style={{ textDecoration: item.isCompleted ? 'line-through' : 'inherit' }}>{item.description}</td>
+              <td className='action'>
                 <Button variant='danger' size='sm' onClick={() => handleDeleteItem(item)}>
                   {strings.deleteItem}
                 </Button>
