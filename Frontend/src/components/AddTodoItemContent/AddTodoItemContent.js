@@ -23,7 +23,7 @@ const AddTodoItemContent = () => {
       return
     }
 
-    createTodoItem({ description })
+    createTodoItem({ description, isCompleted: false })
     setDescription('')
     setIsEmpty(false)
     setIsSubmitted(false)
