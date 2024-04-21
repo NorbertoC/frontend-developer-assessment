@@ -8,22 +8,33 @@ const AddTodoItemContent = () => {
   const [description, setDescription] = useState('')
   const [isEmpty, setIsEmpty] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const errorMessage = useTodoListStore((state) => state.errorMessage)
-  const createTodoItem = useTodoListStore((state) => state.createTodoItem)
 
-  const handleDescriptionChange = (event) => {
+  const errorMessage = useTodoListStore(state => state.errorMessage)
+  const createTodoItem = useTodoListStore(state => state.createTodoItem)
+
+  // Strings
+  const strings = {
+    addItem: 'Add Item',
+    descriptionLabel: 'Description',
+    enterDescription: 'Enter description...',
+    pleaseEnter: 'Please enter something...',
+    addNewItem: 'Add New Item',
+    clear: 'Clear'
+  }
+
+  const handleDescriptionChange = event => {
     setDescription(event.target.value)
     setIsEmpty(event.target.value === '')
   }
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!description) {
       setIsEmpty(true)
       setIsSubmitted(true)
       return
     }
 
-    createTodoItem({ description, isCompleted: false })
+    await createTodoItem({ description, isCompleted: false })
     setDescription('')
     setIsEmpty(false)
     setIsSubmitted(false)
@@ -37,15 +48,15 @@ const AddTodoItemContent = () => {
 
   return (
     <Container>
-      <h1>Add Item</h1>
+      <h1>{strings.addItem}</h1>
       <Form.Group as={Row} className={`${isEmpty && isSubmitted ? 'empty' : ''}`} controlId='formAddTodoItem'>
         <Form.Label column sm='2'>
-          Description
+          {strings.descriptionLabel}
         </Form.Label>
         <Col md='6'>
           <Form.Control
             type='text'
-            placeholder={isEmpty && isSubmitted ? 'Please enter something...' : 'Enter description...'}
+            placeholder={isEmpty && isSubmitted ? strings.pleaseEnter : strings.enterDescription}
             value={description}
             onChange={handleDescriptionChange}
           />
@@ -54,10 +65,10 @@ const AddTodoItemContent = () => {
       <Form.Group as={Row} className='mb-3 offset-md-2 mt-3' controlId='formAddTodoItem'>
         <Stack direction='horizontal' gap={2}>
           <Button variant='primary' onClick={handleAdd}>
-            Add New Item
+            {strings.addNewItem}
           </Button>
           <Button variant='secondary' onClick={handleClear}>
-            Clear
+            {strings.clear}
           </Button>
         </Stack>
       </Form.Group>
